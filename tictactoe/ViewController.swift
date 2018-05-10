@@ -55,6 +55,17 @@ class ViewController: UIViewController {
             
             }
         
+        
+        func autoPlay(pos1: [Int], pos2 : [Int]){
+            var p1count: Int = pos1.count
+            var p1lastmove: Int = pos1[pos1.count]
+            var p2lastmove: Int = pos2[pos2.count]
+            var p2nextmove: Int = 0
+            var totalMoves: [Int] = [1,2,3,4,5,6,7,8,9]
+            if p1count > 0 && p2lastmove == 0 {
+                
+            }
+           }
         }
     
 
@@ -87,16 +98,18 @@ class ViewController: UIViewController {
     
     @IBOutlet var buttonCollection: [UIButton]!
     
+    @IBOutlet weak var SwitchButton: UISwitch!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var player1Label: UILabel!
     @IBOutlet weak var player2Label: UILabel!
     @IBOutlet var buttons: [UIButton]!
 
     @IBAction func butttontap(_ sender: UIButton) {
+        
         start.isEnabled = true
         player2Label.backgroundColor = UIColor(red: 200.0/255.0, green: 16.0/255.0, blue: 46.0/255.0, alpha: 1.0);
         player1Label.backgroundColor = UIColor(red: 50.0/255.0, green: 16.0/255.0, blue: 46.0/255.0, alpha: 1.0);
-        if player1.turn == true{
+        if player1.turn == true {
             player1.switchTurn()
             player2.switchTurn()
              player1.setplayerPosition(p:sender.tag)
@@ -112,7 +125,7 @@ class ViewController: UIViewController {
             }
             sender.isEnabled = false
         }
-        else if player2.turn == true{
+        else if player2.turn == true && SwitchButton.isOn == false{
             
             player2.switchTurn()
             player1.switchTurn()
@@ -127,16 +140,29 @@ class ViewController: UIViewController {
             sender.isEnabled = false
             sender.titleLabel?.font = UIFont.boldSystemFont(ofSize: 50)
             sender.setTitleColor(UIColor.white, for: .normal)
-            sender.isEnabled = false
         }
-        
+       if player2.turn == true && SwitchButton.isOn == true{
+            
+            player2.switchTurn()
+            player1.switchTurn()
+            sender.backgroundColor = UIColor(red: 200.0/255.0, green: 16.0/255.0, blue: 46.0/255.0, alpha: 1.0);
+        player2.autoPlay(pos1 :player1.playerPoistions,pos2 :player2.playerPoistions)
+            player2Label.text = "Player2"
+            let ps2 = player2.getplayerPositions()
+            for s in ps2  {
+                player2Label.text = player2Label.text! + String(s)
+            }
+        }
         scoreLabel.text = String("Player1 score : \(player1.displayscore(positions: player1.getplayerPositions()))")
         scoreLabel.text = scoreLabel.text! + String("   Player2 score : \(player2.displayscore(positions: player2.getplayerPositions()))")
+       
     }
     
  
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         
         // Do any additional setup after loading the view, typically from a nib.
     }
