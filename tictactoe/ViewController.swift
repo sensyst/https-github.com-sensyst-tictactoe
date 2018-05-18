@@ -82,16 +82,21 @@ class ViewController: UIViewController {
                 if tempmoves.contains(val1) == false{
                 availablemoves.append(val1)
                 }
+
+            }
                 print("total moves\(totalMoves)")
                 print("Avail moves\(availablemoves)")
-            }
+                print("temp moves\(tempmoves)")
             }
             if availablemoves.count > 0{
             let random = availablemoves[Int(arc4random_uniform(UInt32(availablemoves.count)))]
                 return random
             }
+            else{
            // return random
             return 0
+                
+            }
            }
         
     }
@@ -100,6 +105,8 @@ class ViewController: UIViewController {
     var player2 = Players(id: "Player-2", turn: false, points: 0, playertext: "O")
     
     @IBOutlet weak var start: UIButton!
+    
+    //Re intialising the variables and Buttons upon Start buttin tapped
     @IBAction func start(_ sender: UIButton) {
         var totalMoves: [Int] = [1,2,3,4,5,6,7,8,9]
         var tempmoves: [Int] = []
@@ -139,13 +146,13 @@ class ViewController: UIViewController {
         start.isEnabled = true
         player2Label.backgroundColor = UIColor(red: 200.0/255.0, green: 16.0/255.0, blue: 46.0/255.0, alpha: 1.0);
         player1Label.backgroundColor = UIColor(red: 50.0/255.0, green: 16.0/255.0, blue: 46.0/255.0, alpha: 1.0);
+        
         if player1.turn == true && SwitchButton.isOn == false{
             player1.switchTurn()
             player2.switchTurn()
              player1.setplayerPosition(p:sender.tag)
             sender.setTitle(player1.playertext, for: .normal)
             sender.titleLabel?.font = UIFont.boldSystemFont(ofSize: 50)
-           
             sender.setTitleColor(UIColor.red, for: .normal)
             sender.backgroundColor = UIColor(red: 50.0/255.0, green: 16.0/255.0, blue: 46.0/255.0, alpha: 1.0);
             let ps = player1.getplayerPositions()
@@ -171,9 +178,10 @@ class ViewController: UIViewController {
             }
             sender.isEnabled = false
             let nextmoves = player2.autoPlay(pos1 :player1.playerPoistions,pos2 :player2.playerPoistions)
+            player1.switchTurn()
             if nextmoves > 0 {
             player2.switchTurn()
-            player1.switchTurn()
+            
             
             sender.backgroundColor = UIColor(red: 200.0/255.0, green: 16.0/255.0, blue: 46.0/255.0, alpha: 1.0);
             
