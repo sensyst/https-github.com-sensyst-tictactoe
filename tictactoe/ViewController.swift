@@ -90,8 +90,8 @@ class ViewController: UIViewController {
             let random = availablemoves[Int(arc4random_uniform(UInt32(availablemoves.count)))]
                 return random
             }
-            return random
-            
+           // return random
+            return 0
            }
         
     }
@@ -170,11 +170,13 @@ class ViewController: UIViewController {
                 player1Label.text = player1Label.text! + String(s)
             }
             sender.isEnabled = false
+            let nextmoves = player2.autoPlay(pos1 :player1.playerPoistions,pos2 :player2.playerPoistions)
+            if nextmoves > 0 {
             player2.switchTurn()
             player1.switchTurn()
-           
+            
             sender.backgroundColor = UIColor(red: 200.0/255.0, green: 16.0/255.0, blue: 46.0/255.0, alpha: 1.0);
-            let nextmoves = player2.autoPlay(pos1 :player1.playerPoistions,pos2 :player2.playerPoistions)
+            
             player2Label.text = "Player2"
             player2.setplayerPosition(p: nextmoves)
             let ps2 = player2.getplayerPositions()
@@ -186,6 +188,7 @@ class ViewController: UIViewController {
             buttonCollection[nextmoves-1].titleLabel?.font = UIFont.boldSystemFont(ofSize: 50)
             buttonCollection[nextmoves-1].setTitleColor(UIColor.white, for: .normal)
             buttonCollection[nextmoves-1].isEnabled = false
+            }
             
         }
             
